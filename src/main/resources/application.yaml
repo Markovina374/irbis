@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/irbis3
+    username: postgres
+    password: 1406
+  jpa:
+    database: postgresql
+server:
+  port: 8090
+  servlet:
+    context-path: /api/v1
+flyway:
+  url: jdbc:postgresql://localhost:5432/irbis3
+  schemas: public
+  user: postgres
+  password: 1406
+reportPath: C:\Users\Marko\Desktop\irbis\
+
