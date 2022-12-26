@@ -18,7 +18,7 @@ public class SchedullerService {
   private final CSVService csvService;
 
   @PostConstruct
-  private void start () {
+  private void start() {
     List<Publisher> publishersWithCron = publisherService.readAll()
             .stream()
             .filter(x -> !Objects.equals(x.getReportInterval(), ""))

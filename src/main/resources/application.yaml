@@ -16,4 +16,6 @@ flyway:
   user: postgres
   password: 1406
 reportPath: C:\Users\Marko\Desktop\irbis\
+jwt:
+  secret: 123
 

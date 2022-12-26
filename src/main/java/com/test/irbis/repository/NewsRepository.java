@@ -4,14 +4,14 @@ import com.test.irbis.model.News;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface NewsRepository extends JpaRepository<News, Long> {
+public interface NewsRepository extends AbstractRepository<News> {
   Page<News> findAll(Pageable pageable);
+
   Page<News> findAllByTopic_DescriptionOrTopicPublisherName(String description, String publisherName, PageRequest pageable);
 
   List<News> findAllByTopic_PublisherId(Long publisherId);

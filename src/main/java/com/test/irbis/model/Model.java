@@ -11,5 +11,5 @@ import lombok.Data;
 public abstract class Model {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  private long id;
 }
