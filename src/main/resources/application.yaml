@@ -3,9 +3,12 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/irbis3
     username: postgres
-    password: 1406
+    password: postgres
   jpa:
+    #    show-sql: true
     database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
 server:
   port: 8090
   servlet:
@@ -14,8 +17,10 @@ flyway:
   url: jdbc:postgresql://localhost:5432/irbis3
   schemas: public
   user: postgres
-  password: 1406
+  password: postgres
 reportPath: C:\Users\Marko\Desktop\irbis\
 jwt:
   secret: 123
-
+springdoc:
+  enable-native-support: true
+  swagger-ui.path: /swagger-ui

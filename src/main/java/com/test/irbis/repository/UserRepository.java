@@ -6,7 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Репозиторий для работы с пользователями
+ */
 @Repository
 public interface UserRepository extends JpaRepository<WebUser, Long> {
+  /**
+   * Поиск по логину
+   *
+   * @param login логин пользователя
+   */
   Optional<WebUser> findByLogin(String login);
 }

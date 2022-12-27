@@ -13,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Конфигурация для безопасности
+ */
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
@@ -36,7 +39,7 @@ public class SecurityConfiguration {
     return http.cors().and()
             .csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/", "/auth/token").permitAll()
+            .requestMatchers("/auth/token", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .anyRequest().hasRole("USER")
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

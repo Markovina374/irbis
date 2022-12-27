@@ -11,12 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * Сервис для работы с токенами
+ */
 @Service
 @Slf4j
 public class JwtTokenService {
 
   private final Algorithm hmac512;
   private final JWTVerifier verifier;
+  /**
+   * Время жизни токена
+   */
   private final int jwtTokenTimeValidity = 4 * 60 * 60 * 1000;
 
   public JwtTokenService(@Value("${jwt.secret}") final String secret) {
@@ -24,6 +30,9 @@ public class JwtTokenService {
     this.verifier = JWT.require(this.hmac512).build();
   }
 
+  /**
+   * Метод генерации токена
+   */
   public String generateToken(final UserDetails userDetails) {
     return JWT.create()
             .withSubject(userDetails.getUsername())
@@ -31,6 +40,12 @@ public class JwtTokenService {
             .sign(this.hmac512);
   }
 
+  /**
+   * Валидация токена и импорт от туда логина
+   *
+   * @param token строка токена
+   * @return логин пользователя
+   */
   public String validateTokenAndGetUsername(final String token) {
     try {
       return verifier.verify(token).getSubject();

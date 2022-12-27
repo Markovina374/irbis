@@ -15,6 +15,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Jwt фильтр для настройки безопасности
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -25,7 +28,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
                                   final FilterChain chain) throws ServletException, IOException {
-    // look for Bearer auth header
     final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (header == null || !header.startsWith("Bearer ")) {
       chain.doFilter(request, response);
@@ -35,19 +37,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     final String token = header.substring(7);
     final String username = jwtTokenService.validateTokenAndGetUsername(token);
     if (username == null) {
-      // validation failed or token expired
       chain.doFilter(request, response);
       return;
     }
 
-    // set user details on spring security context
     final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
     final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
             userDetails, null, userDetails.getAuthorities());
     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    // continue with authenticated user
     chain.doFilter(request, response);
   }
 
