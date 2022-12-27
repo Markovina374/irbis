@@ -24,7 +24,6 @@ public class Publisher extends Model {
   /**
    * Крон выражение для записи отчёта
    */
-  @JsonIgnore
   @Column(name = "REPORT_INTERVAL")
   private String reportInterval;
 }
